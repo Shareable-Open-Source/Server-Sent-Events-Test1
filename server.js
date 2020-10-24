@@ -56,6 +56,7 @@ app.get('/status', (req, res) => res.json({clients: clients.length}));
 const PORT = 5000;
 let clients = [];
 let nests = [];
+app.use('/',express.static(__dirname+'/public'))
 app.listen(PORT,()=>{
     console.log("server started at PORT = "+PORT)
 })
