@@ -1,0 +1,31 @@
+<input type="text" id='msg' /> <button id='some'>Send</button>
+<script>
+    document.querySelector("#some").addEventListener("click",()=>{
+        fetch("http://localhost:5000/nest",{
+            method:"POST",
+            headers:{
+                'Content-Type':'application/json',
+                'Connection': 'keep-alive',
+                'Cache-Control': 'no-cache'
+            },
+            body:JSON.stringify({
+                message:document.querySelector("#msg").value
+            })
+        })
+        .then(x=>{
+            console.log(x)
+            alert(JSON.stringify(x))
+        })
+        .catch(e=>{
+            console.log(e)
+            alert("Error")
+        })
+    })
+    var x = 1;
+    const events = new EventSource('http://localhost:5000/events');
+      events.onmessage = (event) => {
+        alert(event.data)
+        const parsedData = JSON.parse(event.data);
+        console.log(parsedData)
+      };
+</script>
